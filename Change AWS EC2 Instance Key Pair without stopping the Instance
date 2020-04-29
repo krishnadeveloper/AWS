@@ -3,19 +3,48 @@
 
 # Steps To change 
 
+# Mac OS
 
-download the zip and extract then run the command <code>npm install</code>
+1. Login to your aws account and go to EC2 dashboard
+2. Click on <code> Key Pairs </code> which is under ###NETWORK & SECURITY and you will be redirected on next screen and there will appear list of key pairs
+3. Click on <code> Create Key Pairs <code> on top right corner on top of the key pairs list header
+4. After clicked on <code> Create Key Pairs </code>, one form will appear with fields name and file format 
+5. Enter any name in the name input and key pem selected in format
+6. Click on create key pair button to create a new pem file and it will automatically be downdownload(Or It may ask for permission to open the popup)
+7. Now set the permission 600 of newly downloaded pem file </code> chmod 600 <PATH>new_pem_file.pem <code> , If you will not set permission 600 then ssh-keygen will show you the error to set connect permiossn to create a public key
+8. Create SSH RSA <code> ssh-keygen -f <PATH>new_pem_file.pem -y <code> and output will look like <code> ssh-rsa *************Log Encriptyed Text********** </code>
+9. Goto the terminal/ puTTY or any other medium which you are using to get connected with server, and connected to the server
+10. Run <code> sudo su </code>
+11. <code> nano .ssh/authorized_keys </code> , now authorized_keys will appear in nano editor copy that SSH-RSA key carefully paste in a notepade file and save that
+12. Now COPY the newly created SSH-RSA from the step 8, and paste into authorized_keys
+13. CONTROL + X
+14. Press Y
+15. Press return (or enter)
+16. Now exit from the server 
+17. Try to connected with old pem file => Output =>  Permission denied (publickey).
+18. Try to connect new pem file = output = Done 
 
-OR
 
-You can clone the project by using git and follow the command below 
+#Windows OS (Source : https://stackoverflow.com/questions/7881469/change-key-pair-for-ec2-instance)
 
-<code> git clone https://github.com/krishnadeveloper/reactjsadmin.git </code>
+Change pem login
+go to your EC2 Console
+Under NETWORK & SECURITY, click on Key Pair Click on Create Key Pair
+Give your new key pair a name, save the .pem file. The name of the key pair will be used to connect to your instance
+Create SSH connection to your instance and keep it open
+in PuttyGen, click "Load" to load your .pem file
+Keep the SSH-2 RSA radio button checked. Click on "Save private key" You'll get pop-up window warning, click "Yes”
+click on "Save public key" as well, so to generate the public key. This is the public key that we're going to copy across to your current instance
+Save the public key with the new key pair name and with the extension .pub
+Open the public key content in a notepad
+copy the content below "Comment: "imported-openssh-key" and before "---- END SSH2 PUBLIC KEY ----
+Note - you need to copy the content as one line - delete all new lines
+on your connected instance, open your authorized_keys file using the tool vi. Run the following command: vi .ssh/authorized_keys you should see the original public key in the file also
+move your cursor on the file to the end of your first public key content :type "i" for insert
+on the new line, type "ssh-rsa" and add a space before you paste the content of the public key , space, and the name of the .pem file (without the .pem) Note - you should get a line with the same format as the previous line
+press the Esc key, and then type :wq!
+this will save the updated authorized_keys file
 
-<code> cd reactjsadmin </code>
+now try open a new SSH session to your instance using your new key pai
 
-<code> npm install </code>
-
-Once your installation done run below command
-
-<code> npm start </code>
+When you've confirmed you're able to SSH into the instance using the new key pair, u can vi .ssh/authorized_key and delete the old key.
