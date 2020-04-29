@@ -1,9 +1,9 @@
-# Change AWS EC2 Instance Key Pair without stopping the Instance
+#Change AWS EC2 Instance Key Pair without stopping the Instance
 
 
-# Steps To change 
+#Steps To change 
 
-# Mac OS
+#Mac OS (Source : https://blog.knoldus.com/change-aws-ec2-instance-key-pair-without-stopping-the-instance/)
 
 1. Login to your aws account and go to EC2 dashboard
 2. Click on <code> Key Pairs </code> which is under ###NETWORK & SECURITY and you will be redirected on next screen and there will appear list of key pairs
