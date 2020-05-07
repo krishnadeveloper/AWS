@@ -15,6 +15,7 @@ Steps Source :
 [Source : https://geekylane.com/set-up-an-apache2-webserver-on-ubuntu-18-04-ec2-instance-aws/]
 
 sudo apt update -y && sudo apt upgrade -y
+sudo apt install apache2 -y (OPTIONAL)
 sudo service apache2 restart 
 
 
